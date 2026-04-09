@@ -286,6 +286,46 @@ NexT.utils = NexT.$u = {
           ((sidebarPadding * 2) + sidebarNavHeight + (CONFIG.sidebar.offset * 2) + this.getSidebarb2tHeight()) :
           ((sidebarPadding * 2) + (sidebarNavHeight / 2));
     return sidebarSchemePadding;
+  },
+
+  initCustomRadioPlayer: function () {
+    var stations = [
+      { name: 'Groove Salad', url: 'https://ice.somafm.com/groovesalad' },
+      { name: 'Drone Zone', url: 'https://ice.somafm.com/dronezone' },
+      { name: 'Deep Space One', url: 'https://ice.somafm.com/deepspaceone' },
+      { name: 'Indie Pop Rocks!', url: 'https://ice.somafm.com/indiepop' }
+    ];
+
+    $('.custom-radio-player').each(function () {
+      var $player = $(this);
+      var $audio = $player.find('.custom-radio-audio');
+      var $name = $player.find('.custom-radio-name');
+      var $reroll = $player.find('.custom-radio-reroll');
+      var currentIndex = -1;
+
+      function pickStation() {
+        var nextIndex = Math.floor(Math.random() * stations.length);
+        if (stations.length > 1) {
+          while (nextIndex === currentIndex) {
+            nextIndex = Math.floor(Math.random() * stations.length);
+          }
+        }
+        currentIndex = nextIndex;
+        var station = stations[currentIndex];
+        $audio.attr('src', station.url);
+        $name.text('当前频道: ' + station.name);
+      }
+
+      pickStation();
+
+      $reroll.on('click', function () {
+        var shouldResume = !$audio[0].paused;
+        pickStation();
+        if (shouldResume) {
+          $audio[0].play().catch(function () {});
+        }
+      });
+    });
   }
 
   /**

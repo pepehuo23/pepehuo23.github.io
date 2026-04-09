@@ -33,6 +33,7 @@ $(document).ready(function () {
   CONFIG.tabs && NexT.utils.registerTabsTag();
 
   NexT.utils.embeddedVideoTransformer();
+  NexT.utils.initCustomRadioPlayer();
   NexT.utils.addActiveClassToMenuItem();
 
 
