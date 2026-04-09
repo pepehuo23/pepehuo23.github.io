@@ -127,6 +127,7 @@ NexT.utils = NexT.$u = {
       'player.vimeo.com',
       'player.youku.com',
       'music.163.com',
+      'open.spotify.com',
       'www.tudou.com'
     ];
     var pattern = new RegExp( SUPPORTED_PLAYERS.join('|') );
