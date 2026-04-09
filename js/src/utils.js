@@ -290,10 +290,9 @@ NexT.utils = NexT.$u = {
 
   initCustomRadioPlayer: function () {
     var stations = [
-      { name: 'Drone Zone', detail: 'ambient drone', url: 'https://ice.somafm.com/dronezone' },
-      { name: 'Deep Space One', detail: 'spatial ambient', url: 'https://ice.somafm.com/deepspaceone' },
-      { name: 'Groove Salad', detail: 'chilled ambient', url: 'https://ice.somafm.com/groovesalad' },
-      { name: 'Space Station Soma', detail: 'floating electronic', url: 'https://ice.somafm.com/spacestation' }
+      { name: 'Quiet Piano Mood', detail: 'soft piano style ambient', url: 'https://ice.somafm.com/dronezone' },
+      { name: 'Japanese Calm Mood', detail: 'gentle ambient and light textures', url: 'https://ice.somafm.com/deepspaceone' },
+      { name: 'Late Night Study', detail: 'soft background instrumental mood', url: 'https://ice.somafm.com/groovesalad' }
     ];
 
     $('.custom-radio-player').each(function () {
