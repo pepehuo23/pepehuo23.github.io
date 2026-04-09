@@ -3011,3 +3011,70 @@ body {
   margin: auto;
   background-attachment: fixed;
 }
+.custom-radio-player {
+  margin-top: 10px;
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(17, 17, 17, 0.92);
+  color: #f5f5f5;
+  text-align: left;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
+}
+.custom-radio-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.custom-radio-kicker {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.58);
+}
+.custom-radio-status {
+  font-size: 11px;
+  color: #91f2c1;
+}
+.custom-radio-station {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #ffffff;
+}
+.custom-radio-meta {
+  margin-top: 4px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.54);
+}
+.custom-radio-audio {
+  display: none;
+}
+.custom-radio-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+.custom-radio-toggle,
+.custom-radio-reroll {
+  appearance: none;
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.custom-radio-toggle:hover,
+.custom-radio-reroll:hover {
+  transform: translateY(-1px);
+}
+.custom-radio-toggle {
+  background: linear-gradient(135deg, #e9f7ef, #b7ffd9);
+  color: #111;
+}
+.custom-radio-reroll {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.88);
+}

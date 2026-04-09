@@ -290,16 +290,20 @@ NexT.utils = NexT.$u = {
 
   initCustomRadioPlayer: function () {
     var stations = [
-      { name: 'Groove Salad', url: 'https://ice.somafm.com/groovesalad' },
-      { name: 'Drone Zone', url: 'https://ice.somafm.com/dronezone' },
-      { name: 'Deep Space One', url: 'https://ice.somafm.com/deepspaceone' },
-      { name: 'Indie Pop Rocks!', url: 'https://ice.somafm.com/indiepop' }
+      { name: 'Drone Zone', detail: 'ambient drone', url: 'https://ice.somafm.com/dronezone' },
+      { name: 'Deep Space One', detail: 'spatial ambient', url: 'https://ice.somafm.com/deepspaceone' },
+      { name: 'Groove Salad', detail: 'chilled ambient', url: 'https://ice.somafm.com/groovesalad' },
+      { name: 'Space Station Soma', detail: 'floating electronic', url: 'https://ice.somafm.com/spacestation' }
     ];
 
     $('.custom-radio-player').each(function () {
       var $player = $(this);
       var $audio = $player.find('.custom-radio-audio');
-      var $name = $player.find('.custom-radio-name');
+      var audio = $audio[0];
+      var $station = $player.find('.custom-radio-station');
+      var $meta = $player.find('.custom-radio-meta');
+      var $status = $player.find('.custom-radio-status');
+      var $toggle = $player.find('.custom-radio-toggle');
       var $reroll = $player.find('.custom-radio-reroll');
       var currentIndex = -1;
 
@@ -313,17 +317,79 @@ NexT.utils = NexT.$u = {
         currentIndex = nextIndex;
         var station = stations[currentIndex];
         $audio.attr('src', station.url);
-        $name.text('当前频道: ' + station.name);
+        $station.text(station.name);
+        $meta.text(station.detail);
       }
 
+      function setStatus(text) {
+        $status.text(text);
+      }
+
+      function setToggleLabel() {
+        $toggle.text(audio.paused ? 'Play' : 'Pause');
+      }
+
+      function tryAutoplay() {
+        setStatus('Autoplay...');
+        audio.play().then(function () {
+          setStatus('Live');
+          setToggleLabel();
+        }).catch(function () {
+          setStatus('Tap play');
+          setToggleLabel();
+        });
+      }
+
+      audio.volume = 0.9;
       pickStation();
+      setToggleLabel();
+      tryAutoplay();
+
+      $toggle.on('click', function () {
+        if (audio.paused) {
+          audio.play().then(function () {
+            setStatus('Live');
+            setToggleLabel();
+          }).catch(function () {
+            setStatus('Tap play');
+            setToggleLabel();
+          });
+          return;
+        }
+
+        audio.pause();
+      });
 
       $reroll.on('click', function () {
-        var shouldResume = !$audio[0].paused;
+        var shouldResume = !audio.paused;
         pickStation();
         if (shouldResume) {
-          $audio[0].play().catch(function () {});
+          audio.play().then(function () {
+            setStatus('Live');
+            setToggleLabel();
+          }).catch(function () {
+            setStatus('Tap play');
+            setToggleLabel();
+          });
         }
+      });
+
+      $audio.on('play', function () {
+        setStatus('Live');
+        setToggleLabel();
+      });
+
+      $audio.on('pause', function () {
+        setStatus('Paused');
+        setToggleLabel();
+      });
+
+      $audio.on('waiting', function () {
+        setStatus('Buffering...');
+      });
+
+      $audio.on('error', function () {
+        setStatus('Switch stream');
       });
     });
   }
